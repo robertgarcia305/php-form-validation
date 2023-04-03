@@ -1,0 +1,96 @@
+<form id="form">
+  <div>
+    <label>Name:</label>
+    <input placeholder="John Doe" id="name">
+  </div>
+  <div>
+    <label>Email:</label>
+    <input placeholder="john.doe@gmail.com" id="email">
+  </div>
+  <div>
+    <label>Password</label>
+    <input type="password" id="password">
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+  
+</form>
+
+<div id="errors">
+    
+</div>
+
+
+let btn = document.querySelector("button");
+let name = document.getElementById("name");
+let password = document.getElementById("password");
+let email = document.getElementById("email");
+let form = document.getElementById("form");
+let err = document.getElementById("errors");
+
+let secret_word = "solana";
+
+let name_error = document.createElement("p");
+name_error.innerHTML = "wrong name";
+let email_error = document.createElement("p");
+email_error.innerHTML = "wrong email";
+let pass_error = document.createElement("p");
+pass_error.innerHTML = "wrong password";
+
+// this logic works incredibly well
+// form.addEventListener("submit", (e) => {
+//   if (name.value === "" || name.value == null) {
+//     e.preventDefault();
+    
+//   } else if (!email.value.includes("@")) {
+//     e.preventDefault();
+    
+//   } else if (password.value == "" || password.value !== secret_word) {
+//     e.preventDefault();
+    
+//   } else {
+//     console.log("success");
+//   }
+// });
+
+
+form.addEventListener("submit", (e) => {
+  if (name.value === "" || name.value == null) {
+    err.appendChild(name_error);
+    e.preventDefault();
+  }
+  
+  if (!email.value.includes("@")) {
+    err.appendChild(email_error);
+    e.preventDefault();
+  }
+  
+  if (password.value == "" || password.value !== secret_word) {
+    err.appendChild(pass_error);
+    e.preventDefault();
+  }
+  
+  if (name.value !== "" && name.value != null && email.value.includes("@") && password.value !== "" && password.value === secret_word) {
+    console.log("success");
+  }
+});
+
+// different submits so that the error gets deleted
+name.addEventListener("input", (e) => {
+  if (name.value !== "" && name.value != null) {
+    name_error.remove();
+  }
+});
+
+email.addEventListener("input", (e) => {
+  if (email.value.includes("@")) {
+    email_error.remove();
+  }
+});
+
+password.addEventListener("input", (e) => {
+  if (password.value !== "" && password.value === secret_word) {
+    pass_error.remove();
+  }
+});
